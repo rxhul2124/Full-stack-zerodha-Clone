@@ -1,0 +1,15 @@
+.benefitsImage{
+    width: 75%;
+    margin: 3rem 0 2rem 3rem !important ;
+}
+
+.benefitsText{
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.benefitsTexts{
+    font-size: 0.8rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 2rem !important;
+}

@@ -1,0 +1,13 @@
+.heroSection{
+    font-size: 0.70rem;
+}
+
+button{
+    width: 20% !important;
+    margin: 0 auto;
+    font-size: 0.750rem !important;
+}
+
+heroImage{
+    width: 60%;
+}

@@ -1,0 +1,14 @@
+.signUpButton{
+    background-color: #387dd1 !important;
+    font-size: 1rem !important;
+    width: 60% !important;
+    height: 13% !important;
+}
+
+.signUpCondition{
+    font-size: 0.7rem;
+}
+
+.SignUpImage{
+    width: 90%;
+}

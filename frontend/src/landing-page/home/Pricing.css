@@ -1,0 +1,18 @@
+.pricingSection{
+    font-size: 0.7rem;
+    opacity: 0.85;
+}
+
+a{
+    text-decoration: none;
+}
+
+.pricing{
+    font-size: 0.6rem;
+}
+
+.pricingImages{
+    width: 20%;
+    margin-right: -2.5rem;
+    margin-left: 1rem;
+}

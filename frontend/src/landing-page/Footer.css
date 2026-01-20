@@ -1,0 +1,44 @@
+.footer{
+    background-color: #fafafa;
+    border-top: #ededed solid;
+}
+
+.footerLogo{
+    width: 35%;
+}
+
+.footerLogoSection{
+    padding-right: 2.8rem;
+}
+
+.footerIcon{
+    margin-right: 1rem;
+    opacity: 0.8;
+}
+
+.footerText{
+    opacity: 0.75;
+    font-size: 0.65rem;
+}
+
+.footerMainLinks{
+    font-size: 0.7rem;
+    opacity: 0.75;
+}
+
+.footerBottomText{
+    margin-top: -3rem !important;
+    font-size: 0.65rem;
+    opacity: 0.7;
+    font-weight: 300;
+}
+
+.footerBottomLinks{
+    margin-top: -3rem !important;
+    font-size: 0.6rem;
+}
+
+.footerBottomLinks a{
+    color: black;
+    opacity: 0.75;
+}
