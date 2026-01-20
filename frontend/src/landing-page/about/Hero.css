@@ -1,0 +1,16 @@
+.aboutHero{
+    margin: 5rem 0 5rem 0 !important;
+    opacity: 0.9;
+}
+
+.aboutHeroTextSection{
+    margin: 5rem 0 5rem 0 !important;
+}
+
+.aboutHeroLeftText{
+    font-size: 1.1rem;
+}
+
+.aboutHeroRightText {
+    font-size: 1.1rem;
+}
