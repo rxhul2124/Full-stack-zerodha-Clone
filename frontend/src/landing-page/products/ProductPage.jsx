@@ -1,16 +1,14 @@
 import React from 'react';
 import Hero from './Hero';
-import LeftImage from './LeftImage';
-import RightImage from './RightImage';
 import Universe from './Universe';
+import ProductsTab from './ProductsTab';
 
 
 function ProductPage() {
     return ( 
         <>
             <Hero />
-            <LeftImage />
-            <RightImage />
+            <ProductsTab />
             <Universe />
         </>
      );

@@ -7,23 +7,23 @@ function Footer() {
             <footer className="footer">
                 <div className="container">
                     <div className="row p-4 m-2">
-                        <div className="col-4 footerLogoSection">
+                        <div className="col-md-4 footerLogoSection">
                             <img src="media/images/logo.svg" alt="logo image" className='footerLogo'/>
-                            <p className='footerText mt-2'><i class="fa-regular fa-copyright"></i> 2010 - 2025, Zerodha Broking Ltd. <br />All rights reserved.</p>
+                            <p className='footerText mt-2'><i className="fa-regular fa-copyright"></i> 2010 - 2025, Zerodha Broking Ltd. <br />All rights reserved.</p>
                             <div>
-                                <i class="fa-brands fa-x-twitter footerIcon"></i>
-                                <i class="fa-brands fa-square-facebook footerIcon"></i>
-                                <i class="fa-brands fa-instagram footerIcon"></i>
-                                <i class="fa-brands fa-linkedin-in footerIcon"></i>
+                                <i className="fa-brands fa-x-twitter footerIcon"></i>
+                                <i className="fa-brands fa-square-facebook footerIcon"></i>
+                                <i className="fa-brands fa-instagram footerIcon"></i>
+                                <i className="fa-brands fa-linkedin-in footerIcon"></i>
                             </div>
                             <hr />
                             <div>
-                                <i class="fa-brands fa-youtube footerIcon"></i>
-                                <i class="fa-brands fa-whatsapp footerIcon"></i>
-                                <i class="fa-brands fa-telegram footerIcon"></i>
+                                <i className="fa-brands fa-youtube footerIcon"></i>
+                                <i className="fa-brands fa-whatsapp footerIcon"></i>
+                                <i className="fa-brands fa-telegram footerIcon"></i>
                             </div>
                         </div>
-                        <div className="col-2 footerMainLinks">
+                        <div className="col-md-2 footerMainLinks">
                             <h6>Account</h6>
                             &nbsp;
                             <p>Open demat account</p>
@@ -35,7 +35,7 @@ function Footer() {
                             <p>MTF</p>
                             <p>Referral program</p>
                         </div>
-                        <div className="col-2 footerMainLinks">
+                        <div className="col-md-2 footerMainLinks">
                             <h6>Support</h6>
                             &nbsp;
                             <p>Contact us</p>
@@ -47,7 +47,7 @@ function Footer() {
                             <p>Z-Connect blog</p>
                             <p>Downloads</p>
                         </div>
-                        <div className="col-2 footerMainLinks">
+                        <div className="col-md-2 footerMainLinks">
                             <h6>Company</h6>
                             &nbsp;
                             <p>About</p>
@@ -58,7 +58,7 @@ function Footer() {
                             <p>Zerodha.tech</p>
                             <p>Open source</p>
                         </div>
-                        <div className="col-2 footerMainLinks">
+                        <div className="col-md-2 footerMainLinks">
                             <h6>Quick links</h6>
                             &nbsp;
                             <p>Upcoming IPOs</p>
@@ -70,7 +70,7 @@ function Footer() {
                             <p>Sectors</p>
                         </div>
                     </div>
-                    <div className="row p-4 m-2 footerBottomText">
+                    <div className="row p-4 m-md-2 footerBottomText">
                         <p>Zerodha Broking Ltd.: Member of NSE, BSE​ &​ MCX – SEBI Registration no.: INZ000031633 CDSL/NSDL: Depository services through Zerodha Broking Ltd. – SEBI Registration no.: IN-DP-431-2019 Registered Address: Zerodha Broking Ltd., #153/154, 4th Cross, Dollars Colony, Opp. Clarence Public School, J.P Nagar 4th Phase, Bengaluru - 560078, Karnataka, India. For any complaints pertaining to securities broking please write to <a href="#">complaints@zerodha.com</a>, for DP related to <a href="#">dp@zerodha.com</a>. Please ensure you carefully read the Risk Disclosure Document as prescribed by SEBI | ICF</p>
                         <p>Procedure to file a complaint on <a href="#">SEBI SCORES</a>: Register on SCORES portal. Mandatory details for filing complaints on SCORES: Name, PAN, Address, Mobile Number, E-mail ID. Benefits: Effective Communication, Speedy redressal of the grievances</p>
                         <a href="#">Smart Online Dispute Resolution | Grievances Redressal Mechanism</a>
