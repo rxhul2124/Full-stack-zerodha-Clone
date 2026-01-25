@@ -5,7 +5,7 @@ function Stats() {
     return ( 
         <div className='container mb-5'>
             <div className='row m-3 p-4 StatsSection'>
-                <div className='col-6 mt-5'>
+                <div className='col-md-6 mt-5'>
                     <h4>Trust with confidence</h4>
                     &nbsp;
                     <h5>Customer-first always</h5>
@@ -17,7 +17,7 @@ function Stats() {
                     <h5>Do better with money</h5>
                     <p>With initiatives like Nudge and Kill Switch, we don't just facilitate transactions, but actively help you do better with your money.</p>
                 </div>
-                <div className='col-6 mt-5'>
+                <div className='col-md-6 mt-5'>
                     <img className='w-100' src='media/images/ecosystem.png' alt='ecosystem image'/>
                 </div>
                 <img className='w-75 mx-auto mt-5' src='media/images/pressLogos.png'/>

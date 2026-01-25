@@ -10,33 +10,33 @@ function InvestmentOptions() {
                     <p>Investment options with Zerodha demat account</p>
                 </div>
                 <div className="row m-3 p-4">
-                    <div className="col-3 investmentOptionsImages">
+                    <div className="col-md-3 investmentOptionsImages">
                         <img src="media/images/stocks-acop.svg" alt="" />
                     </div>
-                    <div className="col-3 investmentOptions">
+                    <div className="col-md-3 investmentOptions">
                         <h6>Stocks</h6>
                         <p>Invest in all exchange-listed securities</p>
                     </div>
-                    <div className="col-3 investmentOptionsImages">
+                    <div className="col-md-3 investmentOptionsImages">
                         <img src="media/images/mf-acop.svg" alt="" />
                     </div>
-                    <div className="col-3 investmentOptions">
+                    <div className="col-md-3 investmentOptions">
                         <h6>Mutual funds</h6>
                         <p>Invest in commission-free direct mutual funds</p>
                     </div>
                 </div>
                 <div className="row m-3 p-4">
-                    <div className="col-3 investmentOptionsImages">
+                    <div className="col-md-3 investmentOptionsImages">
                         <img src="media/images/ipo-acop.svg" alt="" />
                     </div>
-                    <div className="col-3 investmentOptions">
+                    <div className="col-md-3 investmentOptions">
                         <h6>IPO</h6>
                         <p>Apply to the latest IPOs instantly via UPI</p>
                     </div>
-                    <div className="col-3 investmentOptionsImages">
+                    <div className="col-md-3 investmentOptionsImages">
                         <img src="media/images/fo-acop.svg" alt="" />
                     </div>
-                    <div className="col-3 investmentOptions">
+                    <div className="col-md-3 investmentOptions">
                         <h6>Futures & options</h6>
                         <p>Hedge and mitigate market risk through simplified F&O trading</p>
                     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUp from './Signup';
+import SignUp from './SignUp';
 import InvestmentOptions from './InvestmentOptions';
 import Steps from './Steps';
 import Benefits from './Benefits';

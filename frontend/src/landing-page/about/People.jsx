@@ -9,13 +9,13 @@ function People() {
                     <h4>People</h4>
                 </div>
                 <div className="row p-4 m-3">
-                    <div className="col-1"></div>
-                    <div className="col-4 text-center ">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-4 text-center ">
                         <img className='rounded-circle ceoImage mb-4' src="media/images/nithin-kamath.jpg" alt="CEO-Image" />
                         <h5>Nithin Kamath</h5>
                         <p>Founder, CEO</p>
                     </div>
-                    <div className="col-6 ceoText mt-3">
+                    <div className="col-md-6 ceoText mt-3">
                         <p>Nithin bootstrapped and founded Zerodha in 2010 to overcome the hurdles he faced during his decade long stint as a trader. Today, Zerodha has changed the landscape of the Indian broking industry.</p>
                         <p>He is a member of the SEBI Secondary Market Advisory Committee (SMAC) and the Market Data Advisory Committee (MDAC).</p>
                         <p>Playing basketball is his zen.</p>

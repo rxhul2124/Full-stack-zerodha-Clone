@@ -10,10 +10,10 @@ function SignUp() {
                     <p>Start investing brokerage free and join a community of 1.6+ crore investors and traders</p>
                 </div>
                 <div className="row p-4 m-3">
-                    <div className="col-7">
+                    <div className="col-md-7">
                         <img className='SignUpImage' src='media/images/account_open.svg'/>
                     </div>
-                    <div className="col-5 mt-2">
+                    <div className="col-md-5 mt-2">
                         <h4 className='opacity-75'>Signup now</h4>
                         <p className='opacity-75'>Or track your existing application</p>
                         <form class="needs-validation" novalidate>
