@@ -1,0 +1,10 @@
+.hero{
+    background-color: #f6f6f6;
+}
+
+.heroButton{
+    width: 40% !important;
+    height: 2.5rem !important;
+    font-size: 1rem !important;
+    background-color: #3474c2 !important;
+}

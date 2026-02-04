@@ -1,0 +1,38 @@
+.wholeSection{
+    height: 4rem;
+}
+
+.borderPaddingNone{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.accordianButton{
+    width: 98%;
+    border: none !important;
+    background-color: white !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: start;
+}
+
+.accordianIcon{
+    padding: 1rem !important;
+    background-color: #f7fcff;
+    color: #3886d9;
+    width: 6%;
+    margin-right: 1rem !important;
+}
+
+.accordianAnimation{
+    background-color: white !important;
+    transition: transform 0.234s ease !important ;
+}
+
+.accordianAnimation:hover{
+    transform: scale(1.023) !important;
+}
+
+.listItems{
+    color:#3886d9;
+}
