@@ -1,0 +1,10 @@
+.menubar{
+    width: 55%;
+    height: 70%;
+}
+.options{
+    margin-top: 0.4rem !important;
+}
+.menuOptions{
+    font-size: 0.87rem;
+}
