@@ -1,0 +1,158 @@
+.buySell{
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 26rem;
+    width: 19rem;
+    border-radius: 0.3rem;
+    color: #f6f9fe;
+    color: black;
+    box-shadow: 2px 2px 20px #ccc;
+    position: absolute;
+    left: 43%;
+    top: 47.4%;
+    z-index: 5;
+    cursor: grab;
+}
+
+.buySell:active {
+    cursor: grabbing;
+}
+
+.mainHead{
+    background-color: #4184f3;
+    font-weight: 600;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    color: white;
+}
+
+.heading{
+    margin-bottom: -0.8rem !important;
+}
+
+.price{
+    margin: 0 0.8rem 0 0.1rem !important;
+    font-size: 0.85rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.headOption{
+    width: 100%;
+    background-color: #f5f5f5;
+    color: #acacac;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.headOption .options{
+    padding: 0.01rem 1rem 0.2rem 1rem;
+    cursor: pointer;
+}
+
+.greyBorder{
+    border-bottom: 2px solid #acacac;
+}
+
+.blueBorder{
+    color: #4f83f0;
+    font-weight: 700;
+    border-bottom: 3px solid #4f83f0;
+}
+
+
+.edit{
+    color: black;
+}
+
+.discription{
+    background-color: white;
+}
+
+
+.discriptionInput{
+    border: 0.001rem solid #eeeeee;
+    width: 80%;
+    height: 49.5px;
+    padding: 0.6rem !important;
+    margin-left: 0.3rem !important;
+    color: #444444;
+}
+
+.discriptionLabel{
+    margin: 0 0 0 1rem !important;
+    color: #9b9b9b;
+    font-size: 0.8rem;
+}
+
+.discriptionIcon{
+    border: 0.001rem  solid #eeeeee;
+    padding: 1rem 1.7rem 1rem 1rem  !important;
+    background-color: #f8f8f8;
+}
+
+.discriptionIcon:hover{
+    color:#4184f3 ;
+    cursor: default;
+}
+.discriptionCheckbox{
+    margin: -1rem 0 0 1.4rem;
+    padding-bottom: 0.5rem;
+    color: #444444;
+}
+
+.discriptionCheckbox input{
+    margin-right: 0.5rem;
+}
+
+.inputParent{
+    margin-top: -0.1rem !important;
+}
+
+
+.funds{
+    font-size: 0.7rem;
+    margin-top: rem;
+    padding: 0.5rem 0 0 0.8rem;
+    border-top: 1px solid #e1e1e1;
+    background-color: #f8f8f8;
+}
+
+.fundsAmount{
+    color: #327cf3;
+    opacity: 1;
+}
+
+.fundsOptions{
+    margin: 0.2rem;
+
+}
+
+.buttons{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f8f8;
+}
+
+.footerButton{
+    width: 87%;
+    height: 2.4rem;
+    margin: 0.3rem 0 0.2rem 0rem;
+    border-radius: 0.2rem;
+    border: 1px solid #9b9b9b;
+    font-weight: 600;
+}
+
+.buy{
+    background-color: #4184f3;
+    color: white;
+}
+
+.cancel{
+    opacity: 0.7;
+}

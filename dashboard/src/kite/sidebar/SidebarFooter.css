@@ -1,0 +1,31 @@
+.footer{
+    margin-top: 21.5rem;
+}
+
+.page{
+    margin-top: -0.0222rem !important;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    padding-top: 0.5rem;
+    color:#9b9b9b;
+    cursor: pointer;
+}
+
+.hover:hover{
+    border-top: 3px solid #EDEDED;
+}
+
+.active{
+    border-top: 3px solid #ff5722;
+}
+
+.addPage{
+    margin-left: 5.2rem;
+    color: black;
+    opacity: 0.7;
+}
+
+.addPage:hover{
+    color: #ff5722;
+}
+

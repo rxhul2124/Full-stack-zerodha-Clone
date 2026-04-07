@@ -6,9 +6,9 @@ function Topbar() {
     return ( 
         <>
             <div className="topbar border">
-                <div className="row p-2">
+                <div className="row">
                     <div className="col d-inline-flex">
-                        <p>NIFTY 50</p>&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>NIFTY 50</p>&nbsp;
                         <p><span style={{color:"#de504b"}}>25643.389</span></p>&nbsp;
                         <p><span>-40.38</span></p>
                     </div>

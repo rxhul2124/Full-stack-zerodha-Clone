@@ -1,0 +1,51 @@
+.wishlist{
+    font-size: 0.8rem;
+    width: 100% ;
+    display: flex !important;
+    justify-content: space-between !important;
+
+}
+
+.lists{
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    box-shadow: 2px 2px 20px #ccc;
+}
+
+.head{
+    font-size: 0.8rem;
+    margin-left: -0.7rem;
+    margin-top: -0.3rem;
+}
+
+.items{
+    background-color: white;
+    font-size: 0.81rem;
+}
+
+
+.items:hover{
+    background-color: #f8f8f8; 
+}
+
+.items:hover .hide{
+    visibility: hidden;
+}
+
+
+
+.items:hover .hoverComponent {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+
+
+
+.exchange{
+    font-size: 0.5rem !important;
+}
+
