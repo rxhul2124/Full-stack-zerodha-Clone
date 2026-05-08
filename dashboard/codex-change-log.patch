@@ -1,0 +1,1660 @@
+diff --git a/dashboard/src/App.css b/dashboard/src/App.css
+index e69de29..ca8ad2c 100644
+--- a/dashboard/src/App.css
++++ b/dashboard/src/App.css
+@@ -0,0 +1,52 @@
++:root{
++    --sidebar-width: 30.5%;
++    --topbar-height: 3.5rem;
++}
++
++.app-body{
++    display: grid;
++    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
++    height: calc(100vh - var(--topbar-height));
++    overflow: hidden;
++    min-height: 0;
++}
++
++.sidebar-column,
++.content-column{
++    min-width: 0;
++    min-height: 0;
++    height: 100%;
++}
++
++.sidebar-column{
++    overflow: hidden;
++}
++
++.content-column{
++    overflow: auto;
++    background-color: #ffffff;
++}
++
++.app-buy-row{
++    --bs-gutter-x: 0;
++    margin: 0;
++}
++
++@media (max-width: 992px) {
++    :root{
++        --sidebar-width: 36%;
++    }
++}
++
++@media (max-width: 768px) {
++    .app-body{
++        grid-template-columns: 1fr;
++        height: auto;
++        min-height: calc(100vh - var(--topbar-height));
++        overflow: visible;
++    }
++
++    .content-column{
++        display: none;
++    }
++}
+diff --git a/dashboard/src/App.jsx b/dashboard/src/App.jsx
+index beb3a89..f2d83b1 100644
+--- a/dashboard/src/App.jsx
++++ b/dashboard/src/App.jsx
+@@ -9,18 +9,16 @@ import BuyComponent from './BuyComponent.jsx';
+ function App() {
+   return (
+     <>
+-      <div className="row">
+-        <Navbar />
+-      </div>
+-      <div className="row">
+-        <div className="col-4">
++      <Navbar />
++      <div className="app-body">
++        <div className="sidebar-column">
+           <Sidebar />
+         </div>
+-        <div className="col-8">
++        <div className="content-column">
+           <Dashboard />
+         </div>
+       </div>
+-      <div className='row'>
++      <div className='row app-buy-row'>
+         <BuyComponent />
+       </div>
+     </>
+diff --git a/dashboard/src/data/wishlist.js b/dashboard/src/data/wishlist.js
+index 5f51c9e..6458b85 100644
+--- a/dashboard/src/data/wishlist.js
++++ b/dashboard/src/data/wishlist.js
+@@ -1,11 +1,154 @@
+-const wishlist = [
+-  {"symbol":"HDFCBANK","exchange":"BSE","change":8.10,"percent_change":0.97,"last_price":847.30},
+-  {"symbol":"INFY","exchange":"NSE","change":-19.30,"percent_change":-1.47,"last_price":1295.70},
+-  {"symbol":"TCS","exchange":"BSE","change":-17.90,"percent_change":-0.71,"last_price":2509.80},
+-  {"symbol":"ONGC","exchange":"NSE","change":-5.00,"percent_change":-1.85,"last_price":265.80},
+-  {"symbol":"HINDUNILVR","exchange":"BSE","change":11.00,"percent_change":0.50,"last_price":2205.00},
+-  {"symbol":"GOLDBEES", "exchange":"NSE","change":3.50,"percent_change":0.64,"last_price":132.16},
+-  {"symbol":"SUNFLAG", "exchange":"NSE","change":3.74,"percent_change":1.67,"last_price":228.36},
++const stockSeeds = [
++  ["HINDUNILVR", 2287.9, 15.1],
++  ["GOLDBEES", 124.31, -0.16],
++  ["HDFCBANK", 781.2, -14.65],
++  ["INFY", 1179.2, 16.5],
++  ["ONGC", 279.2, -4.7],
++  ["SUNFLAG", 415.85, 3.55],
++  ["RELIANCE", 2950.3, -10.2],
++  ["TCS", 3895.5, 25.4],
++  ["ICICIBANK", 1025.6, 12.4],
++  ["SBIN", 720.5, -5.2],
++  ["WIPRO", 520.4, 3.1],
++  ["AXISBANK", 1138.2, 8.45],
++  ["KOTAKBANK", 1726.75, -6.3],
++  ["LT", 3548.4, 22.5],
++  ["ITC", 452.9, 2.8],
++  ["BHARTIARTL", 1428.3, 11.6],
++  ["MARUTI", 11860.5, -75.2],
++  ["BAJFINANCE", 6844.8, 68.1],
++  ["ASIANPAINT", 2868.6, -18.4],
++  ["HCLTECH", 1436.25, 9.65],
++  ["TECHM", 1328.7, -12.2],
++  ["TITAN", 3345.1, 28.7],
++  ["ULTRACEMCO", 10245.4, 92.8],
++  ["NESTLEIND", 2448.35, -16.75],
++  ["POWERGRID", 312.75, 2.45],
++  ["NTPC", 366.4, -3.2],
++  ["COALINDIA", 428.8, 4.15],
++  ["ADANIENT", 3186.5, -42.3],
++  ["ADANIPORTS", 1322.4, 19.2],
++  ["JSWSTEEL", 884.6, -7.4],
++  ["TATASTEEL", 154.75, 1.2],
++  ["HINDALCO", 642.25, 5.1],
++  ["GRASIM", 2468.9, -14.2],
++  ["CIPLA", 1482.7, 10.35],
++  ["SUNPHARMA", 1518.35, 18.6],
++  ["DRREDDY", 6128.5, -36.4],
++  ["DIVISLAB", 3862.9, 44.2],
++  ["APOLLOHOSP", 6284.7, 51.6],
++  ["BAJAJFINSV", 1634.5, -9.8],
++  ["SBILIFE", 1468.3, 7.9],
++  ["HDFCLIFE", 622.7, -4.35],
++  ["BRITANNIA", 4936.2, 21.4],
++  ["EICHERMOT", 4622.8, 32.6],
++  ["HEROMOTOCO", 5168.4, -38.75],
++  ["M&M", 2894.5, 26.3],
++  ["TATAMOTORS", 958.35, -11.2],
++  ["BAJAJ-AUTO", 9048.7, 76.4],
++  ["BPCL", 608.8, 5.5],
++  ["IOC", 171.4, -1.15],
++  ["HINDPETRO", 512.65, 4.35],
++  ["UPL", 548.9, -3.8],
++  ["SHREECEM", 27045.8, 188.6],
++  ["DLF", 824.25, -8.6],
++  ["GODREJPROP", 2828.4, 33.9],
++  ["PIDILITIND", 3014.75, 19.8],
++  ["BERGEPAINT", 516.2, -2.9],
++  ["DABUR", 558.85, 3.4],
++  ["MARICO", 612.3, -1.8],
++  ["COLPAL", 2862.9, 17.6],
++  ["MCDOWELL-N", 1198.4, 12.45],
++  ["TRENT", 4568.5, -41.2],
++  ["DMART", 4186.3, 27.75],
++  ["NAUKRI", 6248.8, 61.4],
++  ["ZOMATO", 194.6, -2.35],
++  ["PAYTM", 402.8, 5.9],
++  ["NYKAA", 173.2, -1.65],
++  ["IRCTC", 946.75, 8.2],
++  ["INDIGO", 4284.5, 42.35],
++  ["CONCOR", 1014.2, -7.6],
++  ["BHEL", 284.15, 3.25],
++  ["BEL", 298.4, 4.4],
++  ["HAL", 4856.7, -55.2],
++  ["SAIL", 139.85, 1.8],
++  ["VEDL", 452.3, -5.4],
++  ["NMDC", 231.6, 2.1],
++  ["BANKBARODA", 258.75, -1.95],
++  ["PNB", 122.4, 1.35],
++  ["CANBK", 112.8, -0.95],
++  ["IDFCFIRSTB", 78.25, 0.85],
++  ["FEDERALBNK", 164.5, -1.1],
++  ["INDUSINDBK", 1478.3, 16.8],
++  ["AUBANK", 632.15, -6.25],
++  ["CHOLAFIN", 1248.9, 13.6],
++  ["MUTHOOTFIN", 1684.2, -12.8],
++  ["MANAPPURAM", 196.35, 2.25],
++  ["LICHSGFIN", 678.4, -4.75],
++  ["TATAPOWER", 428.65, 6.15],
++  ["ADANIGREEN", 1844.9, -24.7],
++  ["ADANIPOWER", 618.3, 8.6],
++  ["JSWENERGY", 624.2, -5.1],
++  ["IRFC", 174.8, 2.55],
++  ["RVNL", 436.7, -6.8],
++  ["MAZDOCK", 2248.5, 28.9],
++  ["COCHINSHIP", 1586.4, -18.2],
++  ["JUBLFOOD", 526.3, 4.65],
++  ["VOLTAS", 1484.9, 15.5],
++  ["CROMPTON", 382.45, -2.75],
++  ["AMBUJACEM", 632.8, 5.7],
++  ["ACC", 2518.6, -17.3],
++  ["BANDHANBNK", 194.25, 3.1],
+ ];
+ 
+-export default wishlist;
+\ No newline at end of file
++const round = (value) => Number(value.toFixed(2));
++
++const createDepth = (price, direction = 1) => ({
++  bid: Array.from({ length: 5 }, (_, index) => ({
++    price: round(price - (index + 1) * direction * 0.2),
++    qty: (5 - index) * 100,
++    orders: 12 - index * 2,
++  })),
++  offer: Array.from({ length: 5 }, (_, index) => ({
++    price: round(price + (index + 1) * direction * 0.2),
++    qty: (5 - index) * 100,
++    orders: 11 - index * 2,
++  })),
++});
++
++const createMarket = (price, change, index, bseOffset = 0) => {
++  const lastPrice = round(price + bseOffset);
++  const currentChange = round(change + bseOffset * 0.25);
++  const prevClose = round(lastPrice - currentChange);
++  const high = round(Math.max(lastPrice, prevClose) + Math.max(4, lastPrice * 0.012));
++  const low = round(Math.min(lastPrice, prevClose) - Math.max(4, lastPrice * 0.012));
++
++  return {
++    last_price: lastPrice,
++    change: currentChange,
++    percent_change: round((currentChange / prevClose) * 100),
++    depth: createDepth(lastPrice, bseOffset ? 1.2 : 1),
++    stats: {
++      prev_close: prevClose,
++      open: round(prevClose + currentChange * 0.35),
++      high,
++      low,
++      volume: 42000 + index * 1375,
++      avg_price: round((high + low + lastPrice) / 3),
++      lower_circuit: round(prevClose * 0.9),
++      upper_circuit: round(prevClose * 1.1),
++      ltq: 1 + (index % 90),
++      ltt: "10:00:00 AM",
++    },
++  };
++};
++
++const wishlist = stockSeeds.map(([symbol, price, change], index) => ({
++  symbol,
++  prices: {
++    NSE: createMarket(price, change, index),
++    BSE: createMarket(price, change, index, index % 2 === 0 ? 0.45 : -0.35),
++  },
++}));
++
++export default wishlist;
+diff --git a/dashboard/src/index.css b/dashboard/src/index.css
+index 9bf4960..9220f8c 100644
+--- a/dashboard/src/index.css
++++ b/dashboard/src/index.css
+@@ -1,4 +1,12 @@
+ *{
+     padding: 0;
+     margin: 0;
+-}
+\ No newline at end of file
++}
++
++html,
++body,
++#root{
++    width: 100%;
++    height: 100%;
++    overflow: hidden;
++}
+diff --git a/dashboard/src/kite/sidebar/Hover.jsx b/dashboard/src/kite/sidebar/Hover.jsx
+index f09e16c..4d2b76c 100644
+--- a/dashboard/src/kite/sidebar/Hover.jsx
++++ b/dashboard/src/kite/sidebar/Hover.jsx
+@@ -1,20 +1,50 @@
+-import React from 'react';
++import React from 'react'; 
+ import './Hover.css'
+ 
+-function Hover({item, setActive, active}) {
+-    const isActive = active === item;
++function Hover({ item, setAction }) {
++
++    const handleAction = (type) => {
++        setAction(prev =>
++            prev.item?.symbol === item.symbol && prev.type === type
++                ? { item: null, type: "",exchange:"NSE" }
++                : { item, type,exchange:"NSE" }
++        );
++    };
++
+     return ( 
+-        <>
+-            <div className="hoverComponent d-inline-flex justify-content-end position-absolute">
+-                <div className="hoverButton" onClick={()=>setActive(isActive ? "" :item)} style={{backgroundColor:"#4085f3", color:"white",fontWeight:700, border:"2px solid #4085f3"}}>B</div>
+-                <div className="hoverButton" style={{backgroundColor:"#fe5622", color:"white",fontWeight:700, border:"2px solid #fe5622"}}>S</div>
+-                <div className="hoverButton"><i className="fa-solid fa-bars-staggered"></i></div>
+-                <div className="hoverButton"><i className="fa-solid fa-arrow-trend-up"></i></div>
+-                <div className="hoverButton"><i className="fa-regular fa-trash-can"></i></div>
+-                <div className="hoverButton"><i className="fa-solid fa-ellipsis"></i></div>
++        <div className="hoverComponent d-inline-flex justify-content-end position-absolute">
++
++            <div className="hoverButton"
++                onClick={() => handleAction("BUY")}
++                style={{ backgroundColor:"#4085f3", color:"white", fontWeight:700 }}>
++                B
++            </div>
++
++            <div className="hoverButton"
++                onClick={() => handleAction("SELL")}
++                style={{ backgroundColor:"#fe5622", color:"white", fontWeight:700 }}>
++                S
++            </div>
++
++            <div className="hoverButton"
++                onClick={()=> handleAction("Market Depth")}>
++                <i className="fa-solid fa-bars-staggered"></i>
+             </div>
+-        </>
+-     );
++
++            <div className="hoverButton">
++                <i className="fa-solid fa-arrow-trend-up"></i>
++            </div>
++
++            <div className="hoverButton">
++                <i className="fa-regular fa-trash-can"></i>
++            </div>
++
++            <div className="hoverButton">
++                <i className="fa-solid fa-ellipsis"></i>
++            </div>
++
++        </div>
++    );
+ }
+ 
+-export default Hover;
+\ No newline at end of file
++export default Hover;
+diff --git a/dashboard/src/kite/sidebar/Search.jsx b/dashboard/src/kite/sidebar/Search.jsx
+index 0a90186..2938b9f 100644
+--- a/dashboard/src/kite/sidebar/Search.jsx
++++ b/dashboard/src/kite/sidebar/Search.jsx
+@@ -1,17 +1,40 @@
+ import React from 'react';
+ 
+-function Search() {
++function Search({ value, onChange }) {
++    const handleSubmit = (event) => {
++        event.preventDefault();
++    };
++
+     return ( 
+         <>
+             <div className="search">
+-                <div className="input-group mt-1 p-2">
+-                    <span className="input-group-text " id="basic-addon1"><i className="fa-solid fa-magnifying-glass"></i></span>                    
+-                    <input type="text" className="form-control" placeholder="Search eg: infy bse, nifty fut, index fund, etc" aria-label="Search eg: infy bse, nifty fut, index fund, etc" aria-describedby="basic-addon1" />
+-                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-sliders"></i></span>
+-                </div>      
++                <form className="input-group mt-1 p-2" onSubmit={handleSubmit}>
++                    <span className="input-group-text"><i className="fa-solid fa-magnifying-glass"></i></span>                    
++                    <input
++                        type="text"
++                        className="form-control"
++                        placeholder="Search eg: infy bse, nifty fut, index fund, etc"
++                        aria-label="Search eg: infy bse, nifty fut, index fund, etc"
++                        value={value}
++                        onChange={(event) => onChange(event.target.value)}
++                    />
++                    {value ? (
++                        <button
++                            type="button"
++                            className="input-group-text search-clear-button"
++                            onClick={() => onChange("")}
++                            title="Clear search"
++                            aria-label="Clear search"
++                        >
++                            <i className="fa-solid fa-xmark"></i>
++                        </button>
++                    ) : (
++                        <span className="input-group-text"><i className="fa-solid fa-sliders"></i></span>
++                    )}
++                </form>      
+             </div>
+         </>
+      );
+ }
+ 
+-export default Search;
+\ No newline at end of file
++export default Search;
+diff --git a/dashboard/src/kite/sidebar/Sidebar.css b/dashboard/src/kite/sidebar/Sidebar.css
+index cec737c..0082d63 100644
+--- a/dashboard/src/kite/sidebar/Sidebar.css
++++ b/dashboard/src/kite/sidebar/Sidebar.css
+@@ -1,5 +1,52 @@
+ .sidebar{
+-    width: 100;
+-    margin-top: -1rem;
+-    height: 93vh;
++    width: 100%;
++    height: 100%;
++    display: flex;
++    flex-direction: column;
++    min-height: 0;
++    max-height: 100%;
++    overflow: hidden;
++    background-color: #ffffff;
++}
++
++.sidebar.border{
++    border-top: 0 !important;
++}
++
++.sidebar-content{
++    flex: 1 1 0;
++    height: 0;
++    min-height: 0;
++    overflow-y: scroll;
++    overflow-x: hidden;
++    padding-bottom: 0.75rem;
++}
++
++.sidebar-content::-webkit-scrollbar {
++    width: 0.45rem;
++}
++
++.sidebar-content::-webkit-scrollbar-track {
++    background-color: #f3f3f3;
++}
++
++.sidebar-content::-webkit-scrollbar-thumb {
++    background-color: #c8c8c8;
++    border-radius: 999px;
++}
++
++.search {
++    position: relative;
++    z-index: 3;
++    flex: 0 0 auto;
++    background-color: #ffffff;
++}
++
++.search-clear-button {
++    color: #444444;
++    cursor: pointer;
++}
++
++.search-clear-button:hover {
++    color: #ff5722;
+ }
+diff --git a/dashboard/src/kite/sidebar/Sidebar.jsx b/dashboard/src/kite/sidebar/Sidebar.jsx
+index ba4b521..4b3f055 100644
+--- a/dashboard/src/kite/sidebar/Sidebar.jsx
++++ b/dashboard/src/kite/sidebar/Sidebar.jsx
+@@ -1,21 +1,180 @@
+-import React from 'react';
++import React, { useState, useEffect } from 'react';
+ import Search from './Search';
+-import Wishlist from './Wishlist'
+-import SidebarFooter from './SidebarFooter'
+-import './Sidebar.css'  
+-import wishlist from '../../data/wishlist'
++import Wishlist from './Wishlist';
++import SidebarFooter from './SidebarFooter';
++import BuySellComponenet from './BuySellComponent';
++import './Sidebar.css';
++import initialData from '../../data/wishlist';
++import updatePrice from '../../utils/updatePrice';
++
++const DEFAULT_PAGE_COUNT = 7;
++const DEFAULT_STOCKS_PER_PAGE = 7;
++const MAX_STOCKS_PER_PAGE = 250;
++
++const cloneMarket = (market = {}) => ({
++    ...market,
++    depth: {
++        bid: market.depth?.bid?.map((item) => ({ ...item })) || [],
++        offer: market.depth?.offer?.map((item) => ({ ...item })) || [],
++    },
++    stats: {
++        ...(market.stats || {}),
++    },
++});
++
++const cloneStock = (stock) => ({
++    ...stock,
++    exchange: stock.exchange || "NSE",
++    prices: {
++        NSE: cloneMarket(stock.prices?.NSE),
++        BSE: cloneMarket(stock.prices?.BSE),
++    },
++});
++
++const createWatchlists = () =>
++    Array.from({ length: DEFAULT_PAGE_COUNT }, (_, index) => ({
++        id: index + 1,
++        stocks: initialData
++            .slice(index * DEFAULT_STOCKS_PER_PAGE, (index + 1) * DEFAULT_STOCKS_PER_PAGE)
++            .map(cloneStock),
++    }));
++
++const createCustomStock = (symbol) => ({
++    ...cloneStock(initialData[0]),
++    symbol,
++});
++
++export default function Sidebar() {
++    const [watchlists, setWatchlists] = useState(createWatchlists);
++    const [activePage, setActivePage] = useState(1);
++    const [action, setAction] = useState({ item: null, type: "", exchange:"NSE" });
++    const [searchQuery, setSearchQuery] = useState("");
++
++    const activePageIndex = Math.max(
++        0,
++        watchlists.findIndex((watchlist) => watchlist.id === activePage)
++    );
++    const activeWatchlist = watchlists[activePageIndex] || watchlists[0];
++    const activePageNumber = activePageIndex + 1;
++    const activeStocks = activeWatchlist?.stocks || [];
++    const normalizedSearchQuery = searchQuery.trim().toUpperCase();
++    const visibleStocks = normalizedSearchQuery
++        ? activeStocks.filter((stock) =>
++            stock.symbol.toUpperCase().includes(normalizedSearchQuery) ||
++            (stock.exchange || "NSE").toUpperCase().includes(normalizedSearchQuery)
++        )
++        : activeStocks;
++
++    useEffect(() => {
++        const interval = setInterval(() => {
++            setWatchlists((currentWatchlists) =>
++                currentWatchlists.map((watchlist) => ({
++                    ...watchlist,
++                    stocks: watchlist.stocks.map(updatePrice),
++                }))
++            );
++        }, 2500);
++
++        return () => clearInterval(interval);
++    }, []);
++
++    const handleAddPage = () => {
++        const nextPageId = Math.max(0, ...watchlists.map((watchlist) => watchlist.id)) + 1;
++
++        setWatchlists([
++            ...watchlists,
++            {
++                id: nextPageId,
++                stocks: [],
++            },
++        ]);
++        setActivePage(nextPageId);
++        setSearchQuery("");
++        setAction({ item: null, type: "", exchange:"NSE" });
++    };
++
++    const handleDeletePage = () => {
++        if (watchlists.length <= 1) return;
++
++        const deleteIndex = watchlists.findIndex((watchlist) => watchlist.id === activePage);
++        const nextWatchlists = watchlists
++            .filter((watchlist) => watchlist.id !== activePage)
++            .map((watchlist, index) => ({
++                ...watchlist,
++                id: index + 1,
++            }));
++        const nextActiveIndex = Math.min(Math.max(deleteIndex, 0), nextWatchlists.length - 1);
++
++        setWatchlists(nextWatchlists);
++        setActivePage(nextWatchlists[nextActiveIndex].id);
++        setSearchQuery("");
++        setAction({ item: null, type: "", exchange:"NSE" });
++    };
++
++    const handleAddStock = (stock) => {
++        const nextStock =
++            typeof stock === "string"
++                ? createCustomStock(stock)
++                : cloneStock(stock);
++        const nextSymbol = nextStock.symbol.toUpperCase();
++
++        setWatchlists((currentWatchlists) =>
++            currentWatchlists.map((watchlist) => {
++                if (watchlist.id !== activePage) return watchlist;
++
++                const hasStock = watchlist.stocks.some(
++                    (item) => item.symbol.toUpperCase() === nextSymbol
++                );
++
++                if (hasStock || watchlist.stocks.length >= MAX_STOCKS_PER_PAGE) {
++                    return watchlist;
++                }
++
++                return {
++                    ...watchlist,
++                    stocks: [...watchlist.stocks, nextStock],
++                };
++            })
++        );
++    };
++
++    const handlePageChange = (pageId) => {
++        setActivePage(pageId);
++        setSearchQuery("");
++        setAction({ item: null, type: "", exchange:"NSE" });
++    };
+ 
+-function Sidebar() {
+-    const count = [1,2,3,4,5,6,7];
+     return ( 
+-        <>
+-            <div className='sidebar border'>
+-                <Search />
+-                <Wishlist listOfData={wishlist}/>
+-                <SidebarFooter count={count}/>
++        <div className='sidebar border'>
++            <Search
++                value={searchQuery}
++                onChange={setSearchQuery}
++            />
++            <div className="sidebar-content">
++                <Wishlist
++                    key={activeWatchlist?.id || activePage}
++                    stocks={visibleStocks}
++                    currentStocks={activeStocks}
++                    pageNumber={activePageNumber}
++                    maxStocks={MAX_STOCKS_PER_PAGE}
++                    searchQuery={searchQuery}
++                    catalog={initialData}
++                    action={action}
++                    setAction={setAction}
++                    onAddPage={handleAddPage}
++                    onAddStock={handleAddStock}
++                />
+             </div>
+-        </>
+-     );
++            <SidebarFooter
++                pages={watchlists}
++                activePage={activePage}
++                onPageChange={handlePageChange}
++                onAddPage={handleAddPage}
++                onDeletePage={handleDeletePage}
++            />
++            <div className={`${action.type === "BUY" || action.type === "SELL" ? "d-block" : "d-none"}`}>
++                <BuySellComponenet action={action} setAction={setAction} />
++            </div>
++        </div>
++    );
+ }
+-
+-export default Sidebar;
+\ No newline at end of file
+diff --git a/dashboard/src/kite/sidebar/SidebarFooter.css b/dashboard/src/kite/sidebar/SidebarFooter.css
+index b8af957..19afe41 100644
+--- a/dashboard/src/kite/sidebar/SidebarFooter.css
++++ b/dashboard/src/kite/sidebar/SidebarFooter.css
+@@ -1,14 +1,20 @@
+ .footer{
+-    margin-top: 21.5rem;
++    display: flex;
++    flex: 0 0 auto;
++    align-items: stretch;
++    min-height: 2.75rem;
++    margin-top: auto;
++    background-color: #ffffff;
+ }
+ 
+ .page{
+-    margin-top: -0.0222rem !important;
+-    padding-left: 1.2rem;
+-    padding-right: 1.2rem;
+-    padding-top: 0.5rem;
++    flex: 0 0 auto;
++    border: 0;
++    border-top: 3px solid transparent;
++    background-color: transparent;
+     color:#9b9b9b;
+     cursor: pointer;
++    padding: 0.55rem 1.1rem 0.45rem;
+ }
+ 
+ .hover:hover{
+@@ -19,13 +25,40 @@
+     border-top: 3px solid #ff5722;
+ }
+ 
+-.addPage{
+-    margin-left: 5.2rem;
++.footer-pages{
++    display: flex;
++    flex: 1 1 auto;
++    min-width: 0;
++    overflow-x: auto;
++    overflow-y: hidden;
++}
++
++.footer-pages::-webkit-scrollbar {
++    height: 0;
++}
++
++.footer-actions{
++    display: flex;
++    flex: 0 0 auto;
++    border: 0;
++    border-left: 1px solid #eeeeee;
++}
++
++.footer-action{
++    width: 2.8rem;
++    border: 0;
++    background-color: #ffffff;
+     color: black;
+     opacity: 0.7;
++    cursor: pointer;
+ }
+ 
+-.addPage:hover{
++.footer-action:hover{
+     color: #ff5722;
+ }
+ 
++.footer-action:disabled{
++    color: #b9b9b9;
++    cursor: not-allowed;
++    opacity: 0.5;
++}
+diff --git a/dashboard/src/kite/sidebar/SidebarFooter.jsx b/dashboard/src/kite/sidebar/SidebarFooter.jsx
+index 11d9b04..759b292 100644
+--- a/dashboard/src/kite/sidebar/SidebarFooter.jsx
++++ b/dashboard/src/kite/sidebar/SidebarFooter.jsx
+@@ -1,27 +1,47 @@
+-import React, { useState } from 'react';
++import React from 'react';
+ import './SidebarFooter.css'
+ 
+-function SidebarFooter({count}) {
+-    const [active, setActive] = useState(1);
+-
++function SidebarFooter({ pages, activePage, onPageChange, onAddPage, onDeletePage }) {
+     return ( 
+         <>
+             <div className="footer border-top">
+-                {
+-                    count.map((item,)=>(
+-                        <div 
+-                            key={item} 
+-                            onClick={()=>setActive(item)} 
+-                            className=
+-                                {`page d-inline-flex justify-content-start 
+-                                ${active === item ? "active": "hover"}`}>{item}
+-                        </div>
+-                    ))
+-                }
+-                <i className="fa-solid fa-layer-group addPage"></i>
++                <div className="footer-pages">
++                    {pages.map((page, index) => (
++                        <button
++                            type="button"
++                            key={page.id}
++                            onClick={() => onPageChange(page.id)}
++                            className={`page ${activePage === page.id ? "active": "hover"}`}
++                            aria-label={`Wishlist ${index + 1}`}
++                        >
++                            {index + 1}
++                        </button>
++                    ))}
++                </div>
++                <div className="footer-actions">
++                    <button
++                        type="button"
++                        className="footer-action deletePage"
++                        onClick={onDeletePage}
++                        disabled={pages.length <= 1}
++                        title="Delete current wishlist"
++                        aria-label="Delete current wishlist"
++                    >
++                        <i className="fa-regular fa-trash-can"></i>
++                    </button>
++                    <button
++                        type="button"
++                        className="footer-action addPage"
++                        onClick={onAddPage}
++                        title="Add wishlist"
++                        aria-label="Add wishlist"
++                    >
++                        <i className="fa-solid fa-layer-group"></i>
++                    </button>
++                </div>
+             </div>
+         </>
+      );
+ }
+ 
+-export default SidebarFooter;
+\ No newline at end of file
++export default SidebarFooter;
+diff --git a/dashboard/src/kite/sidebar/Wishlist.css b/dashboard/src/kite/sidebar/Wishlist.css
+index f6f256a..6197704 100644
+--- a/dashboard/src/kite/sidebar/Wishlist.css
++++ b/dashboard/src/kite/sidebar/Wishlist.css
+@@ -3,7 +3,7 @@
+     width: 100% ;
+     display: flex !important;
+     justify-content: space-between !important;
+-
++    flex: 0 0 auto;
+ }
+ 
+ .lists{
+@@ -13,10 +13,167 @@
+     box-shadow: 2px 2px 20px #ccc;
+ }
+ 
++.new-group-button{
++    border: 0;
++    background-color: transparent;
++    color: #0d6efd;
++    font-size: 0.8rem;
++    padding: 0;
++}
++
++.new-group-button:hover{
++    color: #ff5722;
++}
++
+ .head{
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
++    gap: 0.75rem;
++    margin: -0.45rem -0.75rem 0;
++    border-bottom: 1px solid #e8e8e8;
++    background-color: #f7f7f7;
++    color: #444444;
++    font-size: 0.86rem;
++    font-weight: 600;
++    min-height: 2.35rem;
++    padding: 0 0.55rem;
++}
++
++.watchlist-title{
++    display: flex;
++    align-items: center;
++    gap: 0.55rem;
++    min-width: 0;
++}
++
++.watchlist-title i{
++    color: #555555;
++    cursor: grab;
++}
++
++.watchlist-title span{
++    overflow: hidden;
++    text-overflow: ellipsis;
++    white-space: nowrap;
++}
++
++.watchlist-tools{
++    display: flex;
++    align-items: center;
++    gap: 0.45rem;
++    flex: 0 0 auto;
++}
++
++.watchlist-tool{
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    width: 1.65rem;
++    height: 1.65rem;
++    border: 0;
++    border-bottom: 2px solid transparent;
++    background-color: transparent;
++    color: #333333;
++}
++
++.watchlist-tool:hover,
++.watchlist-tool.edit-active{
++    color: #ff5722;
++}
++
++.watchlist-tool.edit-active{
++    border-bottom-color: #ff5722;
++}
++
++.watchlist-add-panel{
++    position: relative;
++    margin: 0.65rem 0 0.55rem;
++}
++
++.watchlist-add-form{
++    display: flex;
++    align-items: center;
++    overflow: hidden;
++    border: 1px solid #dddddd;
++    border-radius: 4px;
++    background-color: #ffffff;
++}
++
++.watchlist-add-form i{
++    color: #999999;
++    font-size: 0.8rem;
++}
++
++.watchlist-add-form > i{
++    padding-left: 0.75rem;
++}
++
++.watchlist-add-form input{
++    flex: 1 1 auto;
++    min-width: 0;
++    border: 0;
++    outline: 0;
++    padding: 0.55rem 0.65rem;
++    color: #444444;
++    font-size: 0.82rem;
++}
++
++.watchlist-add-form button{
++    width: 2.6rem;
++    align-self: stretch;
++    border: 0;
++    border-left: 1px solid #eeeeee;
++    background-color: #ffffff;
++    color: #ff5722;
++}
++
++.watchlist-add-form button:disabled{
++    color: #c4c4c4;
++    cursor: not-allowed;
++}
++
++.watchlist-add-results{
++    position: absolute;
++    top: calc(100% + 0.25rem);
++    right: 0;
++    left: 0;
++    z-index: 11;
++    overflow: hidden;
++    border: 1px solid #dddddd;
++    border-radius: 4px;
++    background-color: #ffffff;
++    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
++}
++
++.watchlist-add-result{
++    display: flex;
++    width: 100%;
++    align-items: center;
++    justify-content: space-between;
++    gap: 1rem;
++    border: 0;
++    border-bottom: 1px solid #eeeeee;
++    background-color: #ffffff;
++    padding: 0.55rem 0.75rem;
++    color: #444444;
++    font-size: 0.8rem;
++    text-align: left;
++}
++
++.watchlist-add-result:last-child{
++    border-bottom: 0;
++}
++
++.watchlist-add-result:hover{
++    background-color: #f7f7f7;
++    color: #ff5722;
++}
++
++.watchlist-add-empty{
++    padding: 0.65rem 0.75rem;
++    color: #999999;
+     font-size: 0.8rem;
+-    margin-left: -0.7rem;
+-    margin-top: -0.3rem;
+ }
+ 
+ .items{
+@@ -40,12 +197,35 @@
+     visibility: visible;
+ }
+ 
++.exchange{
++    font-size: 0.5rem !important;
++}
+ 
++.empty-watchlist{
++    padding: 2.5rem 0;
++    color: #9b9b9b;
++    font-size: 0.85rem;
++    text-align: center;
++}
+ 
++.market-depth-wrapper {
++    max-height: 0;
++    overflow: hidden;
+ 
++    opacity: 0;
++    transform: translateY(-10px);
+ 
++    transition:
++        max-height 0.25s ease,
++        opacity 0.2s ease,
++        transform 0.2s ease;
+ 
+-.exchange{
+-    font-size: 0.5rem !important;
++    will-change: max-height, opacity, transform;
+ }
+ 
++.market-depth-wrapper.open {
++    max-height: 760px;
++
++    opacity: 1;
++    transform: translateY(0);
++}
+diff --git a/dashboard/src/kite/sidebar/Wishlist.jsx b/dashboard/src/kite/sidebar/Wishlist.jsx
+index bea666a..922b66a 100644
+--- a/dashboard/src/kite/sidebar/Wishlist.jsx
++++ b/dashboard/src/kite/sidebar/Wishlist.jsx
+@@ -1,42 +1,67 @@
+ import React, { useState } from 'react';
+ import './Wishlist.css';
+-import Hover from './hover';
+-import BuySellComponenet from './BuySellComponent';
++import WatchlistAddSearch from './WatchlistAddSearch';
++import WatchlistHeader from './WatchlistHeader';
++import WatchlistStockRow from './WatchlistStockRow';
++import WatchlistSummary from './WatchlistSummary';
+ 
+-function Wishlist({listOfData}) {
+-    const [active , setActive] = useState("");
+-    const [button , setButton] = useState(false);
++function Wishlist({
++    stocks,
++    currentStocks,
++    pageNumber,
++    maxStocks,
++    searchQuery,
++    catalog,
++    action,
++    setAction,
++    onAddPage,
++    onAddStock,
++}) {
++    const [isEditMode, setIsEditMode] = useState(currentStocks.length === 0);
++    const isFiltering = searchQuery.trim().length > 0;
++    const showAddInput = isEditMode || currentStocks.length === 0;
+ 
+      return ( 
+         <>
+-            <div className="row wishlist">
+-                <div className="col ms-4">Wishlist 1(7 / 250)</div>
+-                <div className="col"></div>
+-                <div className="col ms-2"><a href="#">+ New group</a></div>
+-            </div>
++            <WatchlistSummary
++                pageNumber={pageNumber}
++                totalStocks={currentStocks.length}
++                maxStocks={maxStocks}
++                onAddPage={onAddPage}
++            />
+             <div className="lists m-2 p-2 px-3">
+-                <div className="head">Default</div>
+-                {
+-                    listOfData.map((item)=>(
+-                        <div key={item.symbol} className="items row  py-2 position-relative align-items-center">
+-                            <div className={`col-5 ${item.change<0? "text-danger" : "text-success"}`}>
+-                            {item.symbol} <span className='exchange'>{item.exchange}</span>
+-                            </div>
+-                            <div className="col-2 hide">{item.change}</div>
+-                            <div className="col-2 hide">{item.percent_change}%</div>
+-                            <i className={`col-1 hide fa-solid fa-angle-${item.change<1? "down text-danger": "up text-success"}`}></i>
+-                            <div className={`col-1 hide ${item.change<0? "text-danger" : "text-success"}`}>{"\u20B9"}{item.last_price}</div>
+-                            <Hover active={active} setActive={setActive} item={item}/>
+-                        </div>
++                <WatchlistHeader
++                    totalStocks={currentStocks.length}
++                    isEditMode={isEditMode}
++                    onToggleEdit={() => setIsEditMode((current) => !current)}
++                />
++
++                {showAddInput && (
++                    <WatchlistAddSearch
++                        catalog={catalog}
++                        currentStocks={currentStocks}
++                        onAddStock={onAddStock}
++                    />
++                )}
++
++                {stocks.length === 0 ? (
++                    <div className="empty-watchlist">
++                        {isFiltering ? "No stocks match your search" : "No stocks yet"}
++                    </div>
++                ) : (
++                    stocks.map((item) => (
++                        <WatchlistStockRow
++                            key={item.symbol}
++                            item={item}
++                            action={action}
++                            setAction={setAction}
++                        />
+                     ))
+-                }
+-            </div>
+-            <div className={`${active ? "d-block": button ? "d-block" : "d-none"}`}>
+-                <BuySellComponenet data={active} cancel={button} setCancel={setButton}/>
++                )}
+             </div>
+ 
+         </>
+      );
+ }
+ 
+-export default Wishlist;
+\ No newline at end of file
++export default Wishlist;
+diff --git a/dashboard/src/kite/topbar/Menubar.css b/dashboard/src/kite/topbar/Menubar.css
+index 8503dc8..817dcfc 100644
+--- a/dashboard/src/kite/topbar/Menubar.css
++++ b/dashboard/src/kite/topbar/Menubar.css
+@@ -1,10 +1,40 @@
+ .menubar{
+-    width: 58%;
+-    height: 70%;
++    display: flex;
++    align-items: center;
++    min-width: 0;
++    border-right: 1px solid #dddddd;
++    padding: 0 1.6rem;
+ }
+-.options{
+-    margin-top: 0.4rem !important;
++
++.logo{
++    display: flex;
++    align-items: center;
++    flex: 0 0 auto;
+ }
++
++.kite-logo{
++    width: 2.1rem;
++    height: 2.1rem;
++}
++
++.menu-options{
++    display: flex;
++    align-items: center;
++    justify-content: flex-end;
++    gap: 2rem;
++    flex: 1 1 auto;
++    min-width: 0;
++}
++
+ .menuOptions{
++    border: 0;
++    background-color: transparent;
++    color: #444444;
+     font-size: 0.87rem;
+-}
+\ No newline at end of file
++    padding: 0;
++    white-space: nowrap;
++}
++
++.menuOptions:hover{
++    color: #ff5722;
++}
+diff --git a/dashboard/src/kite/topbar/Menubar.jsx b/dashboard/src/kite/topbar/Menubar.jsx
+index e9428f5..f3e314f 100644
+--- a/dashboard/src/kite/topbar/Menubar.jsx
++++ b/dashboard/src/kite/topbar/Menubar.jsx
+@@ -5,15 +5,14 @@ import './Menubar.css'
+ function Menubar() {
+     const MenuOptions=["Dashboard", "Orders", "Holdings", "Positions", "Bids", "Funds"];
+     return (
+-        <div className="menubar border d-inline-flex">
+-            <div className="logo width-50">
+-                <img className="mt-2 ms-3" style={{width:"9%"}} src={logo} alt="Kite Logo" />
++        <div className="menubar">
++            <div className="logo">
++                <img className="kite-logo" src={logo} alt="Kite Logo" />
+             </div>
+-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-            <div className="options d-inline-flex">
++            <div className="menu-options">
+                 {
+                     MenuOptions.map((item, index)=>(
+-                        <p key={index} className="me-4 menuOptions">{item}</p>
++                        <button type="button" key={index} className="menuOptions">{item}</button>
+                     ))
+                 }
+             </div>
+diff --git a/dashboard/src/kite/topbar/Navbar.jsx b/dashboard/src/kite/topbar/Navbar.jsx
+index e534be2..01f8571 100644
+--- a/dashboard/src/kite/topbar/Navbar.jsx
++++ b/dashboard/src/kite/topbar/Navbar.jsx
+@@ -2,17 +2,16 @@ import React from 'react';
+ import Topbar from './Topbar';
+ import Menubar from './Menubar';
+ import Profile from './Profile';
++import './Navbar.css';
+ 
+ function Navbar() {
+     return ( 
+-        <>
+-            <div className='d-inline-flex'>
+-                <Topbar />
+-                <Menubar />
+-                <Profile name={"Rahul"} />
+-            </div>
+-        </>
++        <div className='navbar-shell'>
++            <Topbar />
++            <Menubar />
++            <Profile name={"Rahul"} />
++        </div>
+      );
+ }
+ 
+-export default Navbar;
+\ No newline at end of file
++export default Navbar;
+diff --git a/dashboard/src/kite/topbar/Profile.css b/dashboard/src/kite/topbar/Profile.css
+index 1418223..19ce8be 100644
+--- a/dashboard/src/kite/topbar/Profile.css
++++ b/dashboard/src/kite/topbar/Profile.css
+@@ -1,9 +1,41 @@
+ .profile{
+-    width: 10%;
+-    height: 70%;
++    display: flex;
++    align-items: center;
++    justify-content: flex-end;
++    min-width: 0;
++    padding: 0 1rem;
+ }
+ 
+-.options{
+-    margin-top: 0.86rem;
++.profile-actions{
++    display: flex;
++    align-items: center;
++    justify-content: flex-end;
++    gap: 0.85rem;
++    min-width: 0;
+     font-size: 0.87rem;
+-}
+\ No newline at end of file
++}
++
++.profile-icon{
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    width: 1.8rem;
++    height: 1.8rem;
++    border: 0;
++    background-color: transparent;
++    color: #444444;
++}
++
++.profile-icon:hover{
++    color: #ff5722;
++}
++
++.profile-button{
++    border: 1px solid #dddddd;
++    border-radius: 4px;
++    background-color: #f8f8f8;
++    color: #444444;
++    font-size: 0.82rem;
++    padding: 0.25rem 0.55rem;
++    white-space: nowrap;
++}
+diff --git a/dashboard/src/kite/topbar/Profile.jsx b/dashboard/src/kite/topbar/Profile.jsx
+index 08de63e..7098096 100644
+--- a/dashboard/src/kite/topbar/Profile.jsx
++++ b/dashboard/src/kite/topbar/Profile.jsx
+@@ -3,28 +3,30 @@ import './Profile.css'
+ 
+ function Profile({name}) {
+     return ( 
+-        <>
+-            <div className="profile border">
+-                <div className=" d-inline-flex options">
+-                    <i className="fa-solid fa-cart-shopping  "></i>
++        <div className="profile">
++            <div className="profile-actions">
++                <button type="button" className="profile-icon" aria-label="Basket">
++                    <i className="fa-solid fa-cart-shopping"></i>
++                </button>
+ 
++                <button type="button" className="profile-icon" aria-label="Notifications">
+                     <i className="fa-regular fa-bell"></i>
+-                    <div className="btn-group">
+-                        <button type="button" className="btn btn-secondary btn-sm dropdown-toggle mb-3" data-bs-toggle="dropdown" aria-expanded="false">
+-                            {name}
+-                        </button>
+-                        <ul className="dropdown-menu">
+-                            <li><a className="dropdown-item" href="#">Action</a></li>
+-                            <li><a className="dropdown-item" href="#">Another action</a></li>
+-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
+-                            <li><hr className="dropdown-divider"/></li>
+-                            <li><a className="dropdown-item" href="#">Separated link</a></li>
+-                        </ul>
+-                    </div>
++                </button>
++                <div className="btn-group">
++                    <button type="button" className="profile-button dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
++                        {name}
++                    </button>
++                    <ul className="dropdown-menu dropdown-menu-end">
++                        <li><a className="dropdown-item" href="#">Action</a></li>
++                        <li><a className="dropdown-item" href="#">Another action</a></li>
++                        <li><a className="dropdown-item" href="#">Something else here</a></li>
++                        <li><hr className="dropdown-divider"/></li>
++                        <li><a className="dropdown-item" href="#">Separated link</a></li>
++                    </ul>
+                 </div>
+             </div>
+-        </>
++        </div>
+      );
+ }
+ 
+-export default Profile;
+\ No newline at end of file
++export default Profile;
+diff --git a/dashboard/src/kite/topbar/Topbar.css b/dashboard/src/kite/topbar/Topbar.css
+index 9ccb333..620bf47 100644
+--- a/dashboard/src/kite/topbar/Topbar.css
++++ b/dashboard/src/kite/topbar/Topbar.css
+@@ -1,5 +1,37 @@
+ .topbar{
+-    width: 33%;
+-    height: 70%;
++    display: flex;
++    align-items: center;
++    min-width: 0;
++    border-right: 1px solid #dddddd;
+     font-size: 0.87rem;
++    padding: 0 1.35rem;
++}
++
++.market-indices{
++    display: flex;
++    align-items: center;
++    gap: 1.4rem;
++    min-width: 0;
++    width: 100%;
++}
++
++.index-item{
++    display: flex;
++    align-items: center;
++    gap: 0.45rem;
++    min-width: 0;
++    color: #666666;
++    white-space: nowrap;
++}
++
++.index-item strong{
++    font-weight: 500;
++}
++
++.index-down{
++    color: #de504b;
++}
++
++.index-up{
++    color: #4fb053;
+ }
+diff --git a/dashboard/src/kite/topbar/Topbar.jsx b/dashboard/src/kite/topbar/Topbar.jsx
+index 825296e..8eaacd5 100644
+--- a/dashboard/src/kite/topbar/Topbar.jsx
++++ b/dashboard/src/kite/topbar/Topbar.jsx
+@@ -1,26 +1,23 @@
+ import React from 'react';
+-import Menubar from './Menubar.jsx';
+ import './Topbar.css'
+ 
+ function Topbar() {
+     return ( 
+-        <>
+-            <div className="topbar border">
+-                <div className="row">
+-                    <div className="col d-inline-flex">
+-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>NIFTY 50</p>&nbsp;
+-                        <p><span style={{color:"#de504b"}}>25643.389</span></p>&nbsp;
+-                        <p><span>-40.38</span></p>
+-                    </div>
+-                    <div className="col d-inline-flex">
+-                        <p>SENSEX</p>&nbsp;
+-                        <p><span style={{color:"#4fb053"}}>83242.39</span></p>&nbsp;
+-                        <p><span>-30.38</span></p>
+-                    </div>
++        <div className="topbar">
++            <div className="market-indices">
++                <div className="index-item">
++                    <span>NIFTY 50</span>
++                    <strong className="index-down">25643.389</strong>
++                    <span>-40.38</span>
++                </div>
++                <div className="index-item">
++                    <span>SENSEX</span>
++                    <strong className="index-up">83242.39</strong>
++                    <span>-30.38</span>
+                 </div>
+             </div>
+-        </>
++        </div>
+      );
+ }
+ 
+-export default Topbar;
+\ No newline at end of file
++export default Topbar;
+
+diff --git a/dashboard/src/kite/sidebar/WatchlistAddSearch.jsx b/dashboard/src/kite/sidebar/WatchlistAddSearch.jsx
+new file mode 100644
+index 0000000..b4783cd
+--- /dev/null
++++ b/dashboard/src/kite/sidebar/WatchlistAddSearch.jsx
+@@ -0,0 +1,76 @@
++import React, { useState } from 'react';
++
++function WatchlistAddSearch({ catalog, currentStocks, onAddStock }) {
++    const [addQuery, setAddQuery] = useState("");
++    const trimmedAddQuery = addQuery.trim();
++    const normalizedAddQuery = trimmedAddQuery.toUpperCase();
++    const currentSymbols = new Set(
++        currentStocks.map((stock) => stock.symbol.toUpperCase())
++    );
++    const addMatches = trimmedAddQuery
++        ? catalog
++            .filter((stock) =>
++                stock.symbol.toUpperCase().includes(normalizedAddQuery) &&
++                !currentSymbols.has(stock.symbol.toUpperCase())
++            )
++            .slice(0, 6)
++        : [];
++
++    const addStock = (stock) => {
++        onAddStock(stock);
++        setAddQuery("");
++    };
++
++    const handleAddSubmit = (event) => {
++        event.preventDefault();
++
++        if (addMatches.length === 0) return;
++
++        addStock(addMatches[0]);
++    };
++
++    return (
++        <div className="watchlist-add-panel">
++            <form className="watchlist-add-form" onSubmit={handleAddSubmit}>
++                <i className="fa-solid fa-magnifying-glass"></i>
++                <input
++                    type="text"
++                    value={addQuery}
++                    onChange={(event) => setAddQuery(event.target.value)}
++                    placeholder="Search and add stock"
++                    aria-label="Search and add stock"
++                />
++                <button
++                    type="submit"
++                    disabled={addMatches.length === 0}
++                    aria-label="Add selected stock"
++                >
++                    <i className="fa-solid fa-plus"></i>
++                </button>
++            </form>
++
++            {trimmedAddQuery && (
++                <div className="watchlist-add-results">
++                    {addMatches.length > 0 ? (
++                        addMatches.map((stock) => (
++                            <button
++                                type="button"
++                                key={stock.symbol}
++                                className="watchlist-add-result"
++                                onMouseDown={(event) => event.preventDefault()}
++                                onClick={() => addStock(stock)}
++                            >
++                                <span>{stock.symbol}</span>
++                                <span>NSE {"\u20B9"}{stock.prices?.NSE?.last_price}</span>
++                            </button>
++                        ))
++                    ) : (
++                        <div className="watchlist-add-empty">No available stock found</div>
++                    )}
++                </div>
++            )}
++        </div>
++    );
++}
++
++export default WatchlistAddSearch;
+
+diff --git a/dashboard/src/kite/sidebar/WatchlistHeader.jsx b/dashboard/src/kite/sidebar/WatchlistHeader.jsx
+new file mode 100644
+index 0000000..e704a79
+--- /dev/null
++++ b/dashboard/src/kite/sidebar/WatchlistHeader.jsx
+@@ -0,0 +1,45 @@
++import React from 'react';
++
++function WatchlistHeader({ totalStocks, isEditMode, onToggleEdit }) {
++    return (
++        <div className="head">
++            <div className="watchlist-title">
++                <i className="fa-solid fa-grip-vertical"></i>
++                <span>Default ({totalStocks})</span>
++            </div>
++            <div className="watchlist-tools">
++                <button
++                    type="button"
++                    className="watchlist-tool"
++                    aria-label="Collapse watchlist"
++                >
++                    <i className="fa-solid fa-chevron-up"></i>
++                </button>
++                <button
++                    type="button"
++                    className="watchlist-tool"
++                    aria-label="Expand watchlist"
++                >
++                    <i className="fa-solid fa-expand"></i>
++                </button>
++                <button
++                    type="button"
++                    className={`watchlist-tool edit-watchlist ${isEditMode ? "edit-active" : ""}`}
++                    onClick={onToggleEdit}
++                    aria-label="Edit watchlist"
++                >
++                    <i className="fa-solid fa-pen"></i>
++                </button>
++                <button
++                    type="button"
++                    className="watchlist-tool"
++                    aria-label="More watchlist actions"
++                >
++                    <i className="fa-solid fa-ellipsis-vertical"></i>
++                </button>
++            </div>
++        </div>
++    );
++}
++
++export default WatchlistHeader;
+
+diff --git a/dashboard/src/kite/sidebar/WatchlistStockRow.jsx b/dashboard/src/kite/sidebar/WatchlistStockRow.jsx
+new file mode 100644
+index 0000000..296e91f
+--- /dev/null
++++ b/dashboard/src/kite/sidebar/WatchlistStockRow.jsx
+@@ -0,0 +1,41 @@
++import React from 'react';
++import Hover from './Hover';
++import MarketDepth from './MarketDepth';
++
++function WatchlistStockRow({ item, action, setAction }) {
++    const currentExchange = item.exchange || "NSE";
++    const data = item.prices[currentExchange];
++    const isNegative = data.change < 0;
++
++    return (
++        <div className="items row py-2 position-relative align-items-center border-bottom">
++            <div className={`col-5 ${isNegative ? "text-danger" : "text-success"}`}>
++                {item.symbol} <span className='exchange'>{currentExchange}</span>
++            </div>
++            <div className="col-2 hide">{data.change}</div>
++            <div className="col-2 hide">{data.percent_change}%</div>
++            <i className={`col-1 hide fa-solid fa-angle-${isNegative ? "down" : "up"} ${isNegative ? "text-danger" : "text-success"}`}></i>
++            <div className={`col-1 hide ${isNegative ? "text-danger" : "text-success"}`}>{"\u20B9"}{data.last_price}</div>
++            <Hover 
++                item={item}
++                setAction={setAction} 
++            />
++            <div
++                className={`market-depth-wrapper ${
++                    action.type === "Market Depth" &&
++                    action.item?.symbol === item.symbol
++                    ? "open"
++                    : ""
++            }`}
++            >
++                <MarketDepth
++                    depth={item?.prices?.[currentExchange]?.depth}
++                    stats={item?.prices?.[currentExchange]?.stats}
++                    lastPrice={data.last_price}
++                />
++            </div>
++        </div>
++    );
++}
++
++export default WatchlistStockRow;
+
+diff --git a/dashboard/src/kite/sidebar/WatchlistSummary.jsx b/dashboard/src/kite/sidebar/WatchlistSummary.jsx
+new file mode 100644
+index 0000000..3224ed9
+--- /dev/null
++++ b/dashboard/src/kite/sidebar/WatchlistSummary.jsx
+@@ -0,0 +1,21 @@
++import React from 'react';
++
++function WatchlistSummary({ pageNumber, totalStocks, maxStocks, onAddPage }) {
++    return (
++        <div className="row wishlist">
++            <div className="col ms-4">Wishlist {pageNumber}({totalStocks} / {maxStocks})</div>
++            <div className="col"></div>
++            <div className="col ms-2">
++                <button
++                    type="button"
++                    className="new-group-button"
++                    onClick={onAddPage}
++                >
++                    + New group
++                </button>
++            </div>
++        </div>
++    );
++}
++
++export default WatchlistSummary;
+
+diff --git a/dashboard/src/kite/topbar/Navbar.css b/dashboard/src/kite/topbar/Navbar.css
+new file mode 100644
+index 0000000..4158af8
+--- /dev/null
++++ b/dashboard/src/kite/topbar/Navbar.css
+@@ -0,0 +1,17 @@
++.navbar-shell{
++    display: grid;
++    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) max-content;
++    align-items: stretch;
++    width: 100%;
++    height: var(--topbar-height);
++    border-bottom: 1px solid #dddddd;
++    background-color: #ffffff;
++}
++
++@media (max-width: 992px) {
++    .navbar-shell{
++        grid-template-columns: 1fr;
++        height: auto;
++        min-height: var(--topbar-height);
++    }
++}

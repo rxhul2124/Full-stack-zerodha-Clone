@@ -3,7 +3,6 @@
     width: 100% ;
     display: flex !important;
     justify-content: space-between !important;
-
 }
 
 .lists{
@@ -40,12 +39,28 @@
     visibility: visible;
 }
 
-
-
-
-
-
 .exchange{
     font-size: 0.5rem !important;
 }
 
+.market-depth-wrapper {
+    max-height: 0;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(-10px);
+
+    transition:
+        max-height 0.25ease,
+        opacity 0.2 ease,
+        transform 0.2 ease;
+
+    will-change: max-height, opacity, transform;
+}
+
+.market-depth-wrapper.open {
+    max-height: 600px;
+
+    opacity: 1;
+    transform: translateY(0);
+}

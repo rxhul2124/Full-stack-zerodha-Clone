@@ -1,0 +1,28 @@
+.market-depth-table {
+    background-color: #fff;
+    margin-bottom: 0;
+}
+
+.market-depth-green td,
+.market-depth-green th {
+    color: #28a745 !important;
+}
+
+.market-depth-red td,
+.market-depth-red th {
+    color: #dc3545 !important;
+}
+
+.market-depth-table td,
+.market-depth-table th {
+    padding: 4px 10px;
+    font-size: 13px;
+}
+
+.market-depth-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.market-depth-popup{
+    padding-left: 2rem !important;
+}

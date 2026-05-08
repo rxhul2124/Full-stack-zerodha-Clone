@@ -27,6 +27,16 @@
     color: white;
 }
 
+.switch-buy:checked {
+    background-color: #7aa9f7;
+    border-color: #4085f3;
+}
+
+.switch-sell:checked {
+    background-color: #ff8a65;
+    border-color: #fe5622;
+}
+
 .heading{
     margin-bottom: -0.8rem !important;
 }
@@ -56,10 +66,15 @@
     border-bottom: 2px solid #acacac;
 }
 
-.blueBorder{
+.buyBorder{
     color: #4f83f0;
     font-weight: 700;
     border-bottom: 3px solid #4f83f0;
+}
+.sellBorder {
+    color: #fe6130;
+    font-weight: 700;
+    border-bottom: 3px solid #fe6130;
 }
 
 
@@ -120,8 +135,12 @@
     background-color: #f8f8f8;
 }
 
-.fundsAmount{
+.buyAmount{
     color: #327cf3;
+    opacity: 1;
+}
+.sellAmount{
+    color:#fe5622;
     opacity: 1;
 }
 
@@ -155,4 +174,18 @@
 
 .cancel{
     opacity: 0.7;
+}
+
+.sellMode .mainHead {
+    background-color: #ff5722;
+}
+.sellMode .buy {
+    background-color: #ff5722;
+}
+.sellMode .discriptionIcon:hover {
+    color: #ff5722;
+}
+
+.sellmode .fundsAmount{
+    color: #ff5722;
 }
