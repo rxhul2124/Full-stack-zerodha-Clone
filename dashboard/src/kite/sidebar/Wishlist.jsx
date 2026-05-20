@@ -41,7 +41,7 @@ function Wishlist({ stocks, setStocks, action, setAction }) {
                         <p className='more-option-icon'><span><i className="fa-regular fa-trash-can"></i></span>Delete</p>
                     </div>
                 </div>
-            </div>  
+            </div>
             <div className={`wishlist-edit ${listAction === "edit" ? "" : "edit-hide"}`}>
                 <div className="wishlist-edit-input">
                     <label htmlFor="wishlist-name">Name</label>

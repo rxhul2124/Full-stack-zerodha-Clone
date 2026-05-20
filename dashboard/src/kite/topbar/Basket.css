@@ -5,6 +5,7 @@
     top: 450%;
     left: 5%;
     width: 90%;
+    z-index: 2000;
     background-color: var(--bg-color);
     color: var(--text-color);
     box-shadow: var(--border-color) 5px 5px 100px;

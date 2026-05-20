@@ -64,7 +64,7 @@
     position: absolute;
     right: 10%;
     top: 140%;
-    z-index: 2000;
+    z-index: 1000;
     background-color: var(--bg-color);
     box-shadow: var(--border-color) 1px 1px 20px;
 }

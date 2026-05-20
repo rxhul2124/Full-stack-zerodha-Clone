@@ -27,7 +27,7 @@
     top: 4.6vh;
     left: 0;
     width: 30%;
-    z-index: 3000;
+    z-index: 1000;
     height: calc(100vh - 5vh);
     border-right: 1px solid var(--border-color);
     overflow-y: hidden;
@@ -39,5 +39,5 @@
     padding: 1rem;
     min-height: calc(100vh - 4.5vh);
     overflow-y: auto;
-    z-index: 1000;
+    z-index:1000;
 }
