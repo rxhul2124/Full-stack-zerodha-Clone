@@ -2,3 +2,46 @@
     padding: 0;
     margin: 0;
 }
+
+.button {
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.4rem 1rem 0.4rem 1rem;
+    background-color: #4184F3;
+    color: white;
+    opacity: 1;
+    text-align: center;
+}
+
+.holding-heading{
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 1rem 1rem -2rem 1rem;
+}
+
+.dark .buyHead{
+    background-color: var(--buy-color) !important;
+}
+.dark .sellHead {
+    background-color: var(--sell-color) !important;
+}
+
+.light-mode {
+    --bg-color: white;
+    --text-color: #4C4D4D;
+    --card-bg: white;
+    --border-color: #EFEEEF;
+    --hover-color: #F8F8F8;
+    --buy-color: #4683E5;
+    --sell-color: #FF6838;
+}
+
+.dark-mode {
+    --bg-color: #181919;
+    --text-color: #BBBBBB;
+    --card-bg: #232223;
+    --border-color: #292828 !important;
+    --hover-color: #070808;
+    --buy-color: #232223;
+    --sell-color: #232223;
+}

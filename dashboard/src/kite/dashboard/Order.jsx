@@ -1,9 +1,22 @@
 import React from 'react';
+import './Order.css'
+import {NavLink , Outlet} from 'react-router-dom'
+import DashboardNavbar from './DashboardNavbar';
 
-function Order() {
+function Order({theme}) { 
+    const optionList = ["GTT", "Basket", "SIP", "Alerts"]
     return ( 
         <>
-            <h1>Order</h1>
+
+            <DashboardNavbar
+                pageName="orders"
+                selectedOption="Orders"
+                selectedOptionURL="/orders"
+                optionList={optionList}
+                theme={theme}
+            />
+
+            <Outlet/>
         </>
      );
 }

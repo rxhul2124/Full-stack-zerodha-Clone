@@ -1,0 +1,27 @@
+.corporate-ipo-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+}
+
+.corporate-ipo {
+    padding: 0.5rem;
+}
+
+.corporate-ipo hr {
+    margin-top: -0.6rem !important;
+}
+
+
+.ipo-heading {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.ipo-input {
+    width: 6rem;
+    height: 1rem;
+    padding: 0.71rem;
+}

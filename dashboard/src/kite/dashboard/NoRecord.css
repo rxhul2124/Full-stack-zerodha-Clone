@@ -1,0 +1,21 @@
+.no-reocrd{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.no-reocrd-img{
+    height: 10rem;
+}
+
+.no-record-discription{
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: -0.02rem;
+}
+
+.hideButton{
+    display: none;
+}

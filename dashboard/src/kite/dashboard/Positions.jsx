@@ -1,9 +1,10 @@
 import React from 'react';
+import NoRecord from './NoRecord';
 
-function Positions() {
+function Positions({theme}) {
     return ( 
         <>
-            <h1>Positions</h1>
+            <NoRecord imageURL={`/media/image/positions${theme === "light"?"":"-dark"}.svg`} description1={"You don't have any positions yet"} description2={""} button={"Get started"}/>
         </>
      );
 }

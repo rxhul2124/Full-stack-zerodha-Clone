@@ -1,12 +1,12 @@
 import React from "react";
-import './Table.css'
+import './SidebarTable.css'
 
-function Table({ tableHeads, tabledata, color }) {
+function SidebarTable({ tableHeads, tabledata, color }) {
 
   return (
     <div className="table-responsive market-depth-popup">
       
-      <table className={`table align-middle market-depth-table ${color}`}>
+      <table className={`SidebarTable align-middle market-depth-table ${color}`}>
         
         <thead>
           <tr>
@@ -32,4 +32,4 @@ function Table({ tableHeads, tabledata, color }) {
   );
 }
 
-export default Table;
+export default SidebarTable;

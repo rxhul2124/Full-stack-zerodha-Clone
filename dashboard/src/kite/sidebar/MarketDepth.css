@@ -1,7 +1,16 @@
+.market-table-parent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0.4rem 0.5rem 0 0.5rem; 
+}
+
 .market-depth-wrapper {
+    padding: 0;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
+    background-color: var(--bg-color);
 
     transition:
         max-height 0.35s ease,
@@ -15,4 +24,53 @@
     max-height: 500px;
     opacity: 1;
     margin-top: 10px;
+}
+
+
+.stats-box{
+    background-color: var(--hover-color);
+    border: 1px solid var(--border-color);
+    margin: 1rem 0.5rem 0 0.5rem;
+}
+
+.stats-prev-price{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 1rem 0 1rem;
+}
+.stats-prev-price-col1 p,
+.stats-prev-price-col2 p{
+    margin-bottom: 0;
+}
+
+.stats-prev-price-col2{
+    padding-left:2rem ;
+}
+
+.stats-bar{
+    display: flex;
+    justify-content: center;
+    margin: 1rem 1rem 1rem 1rem ;
+}
+
+.stats-footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
+}
+
+.stats-footer-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.stats-footer-heading{
+    color: var(--text-color);
+    opacity: 0.6;
+    font-weight: 400;
+}
+
+.stats-footer-row p{
+    margin: 0;
 }

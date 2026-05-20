@@ -1,8 +1,7 @@
 import React from 'react'; 
 import './Hover.css'
 
-function Hover({ item, setAction }) {
-
+function Hover({ item, setAction, action }) {
     const handleAction = (type) => {
         setAction(prev =>
             prev.item?.symbol === item.symbol && prev.type === type
@@ -16,13 +15,13 @@ function Hover({ item, setAction }) {
 
             <div className="hoverButton"
                 onClick={() => handleAction("BUY")}
-                style={{ backgroundColor:"#4085f3", color:"white", fontWeight:700 }}>
+                style={{ backgroundColor:"#4683E5", color:"white", fontWeight:700, border:"none" }}>
                 B
             </div>
 
             <div className="hoverButton"
                 onClick={() => handleAction("SELL")}
-                style={{ backgroundColor:"#fe5622", color:"white", fontWeight:700 }}>
+                style={{ backgroundColor:"#FF6838", color:"white", fontWeight:700, border:"none" }}>
                 S
             </div>
 

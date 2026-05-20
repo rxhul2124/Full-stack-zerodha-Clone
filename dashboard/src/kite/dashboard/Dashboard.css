@@ -1,0 +1,110 @@
+.dashboard-equity-commodity{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 0.8rem;
+    font-weight: 200;
+    gap: 6rem;
+    align-content: center;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+}
+
+.kite-name{
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+.kite-dashboard{
+    padding: 0.5rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+
+.heading{
+    font-weight: 400;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.6rem !important;
+
+}
+
+.heading-icon{
+    opacity: 0.9;
+}
+
+.info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+
+.zero{
+    font-size: 3rem;
+    opacity: 0.9;
+    margin-bottom: -0.7rem;
+}
+
+.used{
+    margin-top: 1.3rem;
+    opacity: 0.9;
+}
+
+.investment{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-content: center;
+    margin: 2rem 0 2rem 0;
+}
+
+.investment-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    grid-column: 1 / 4;
+    font-size: 0.9rem;
+}
+.investment-body p{
+    opacity: 0.7;
+    text-align: center;
+}
+
+.investment-img{
+    width: 20rem;
+    height: 15rem;
+}
+
+
+
+.market-view{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 2rem;
+}
+
+.market-icon{
+    opacity: 0.8;
+    margin: 0.5rem;
+}
+
+.market-graph{
+    grid-column: 1/3;
+}
+
+.market-image{
+    width: 100%;
+}
+.positions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.positions-body p{
+    padding: 0.6rem;
+    opacity: 0.8;
+}

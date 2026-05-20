@@ -1,0 +1,79 @@
+.Profile-drop-down{
+    border:1px solid var(--border-color);
+    background-color: var(--bg-color);
+    position: absolute;
+    top: 4.6vh;
+    right: 1vw;
+    width: 19%;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    box-shadow: var(--border-color) 2px 2px 20px;
+}
+
+.drop-down-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.drop-down-head:hover{
+    background-color: var(--hover-color);
+
+}
+
+.person-info p{
+    margin-bottom: -0.2rem;
+}
+
+.general-settings{
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: -0.9rem;
+}
+
+.toggle:hover{
+    background-color: var(--hover-color);
+}
+
+.toggle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    padding:  0.3rem 0.6rem 0 0.6rem;
+}
+
+.toggle i{
+    margin-top: -0.4rem;
+    font-size: 1.5rem;
+}
+
+.menuLinks{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+}
+
+.breaker{
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+}
+
+.menuLinks a{
+    text-decoration: none;
+    padding: 0.6rem;
+    color: var(--text-color);
+    width: 100%;
+}
+
+.menuLinks a:hover{
+    background-color: var(--hover-color);
+}
+
+.menuLinks span{
+    margin-right: 0.4rem;
+    color: var(--text-color);
+}

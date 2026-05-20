@@ -6,18 +6,22 @@ function SidebarFooter({count}) {
 
     return ( 
         <>
-            <div className="footer border-top">
-                {
-                    count.map((item,)=>(
-                        <div 
-                            key={item} 
-                            onClick={()=>setActive(item)} 
-                            className=
-                                {`page d-inline-flex justify-content-start 
-                                ${active === item ? "active": "hover"}`}>{item}
-                        </div>
-                    ))
-                }
+            <div className="footer">
+                <div className="footer-page">
+                    {
+                        count.map((item,)=>(
+                            <div 
+                                style={{borderBottom:"none"}}
+                                key={item} 
+                                onClick={()=>setActive(item)} 
+                                className=
+                                    {`page d-inline-flex justify-content-start 
+                                    ${active === item ? "active": "hover"}`}>{item}
+                                
+                            </div>
+                        ))
+                    }
+                </div>
                 <i className="fa-solid fa-layer-group addPage"></i>
             </div>
         </>

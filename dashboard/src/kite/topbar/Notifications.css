@@ -1,0 +1,17 @@
+.notification{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 10rem;
+    background-color: var(--bg-color);  
+    position: absolute;
+    top: 4.6vh;
+    right: 4vw;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--border-color) 2px 2px 20px;
+}
+
+.notification img{
+    height: 8rem;
+}

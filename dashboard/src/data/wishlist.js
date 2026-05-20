@@ -6,6 +6,7 @@ const stocks = [
   ["ICICIBANK", 1025.60, 12.40],
   ["SBIN", 720.50, -5.20],
   ["WIPRO", 520.40, 3.10],
+  ["SBI", 3520.40, 3.10,]
 ];
 
 const round = (value) => Number(value.toFixed(2));

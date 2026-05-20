@@ -1,9 +1,10 @@
 import React from 'react';
+import NoRecord from './NoRecord';
 
 function Basket() {
     return ( 
         <>
-            <h1>Basket</h1>
+            <NoRecord imageURL={"/media/image/basket.svg"} description1={"You haven't created any baskets."} description2={""} button={"Create new basket"}/>
         </>
      );
 }

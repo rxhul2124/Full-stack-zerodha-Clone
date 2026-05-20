@@ -1,0 +1,24 @@
+.orders-menu{
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.order-options{
+    padding: 1rem 1rem 0.5rem 1rem;
+    margin-left: 0.2rem;
+    text-decoration: none;
+    color: var(--text-color)x;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.active {
+    color: #FE5622;
+    border-bottom: 2px solid #FE5622;
+}
+
+.order-options:hover{
+    color: #FE5622;
+    border-bottom: 2px solid #FE5622;
+}

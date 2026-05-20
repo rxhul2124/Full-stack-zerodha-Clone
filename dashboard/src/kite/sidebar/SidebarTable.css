@@ -1,0 +1,40 @@
+.market-depth-table,
+.market-depth-table thead,
+.market-depth-table tbody,
+.market-depth-table tr,
+.market-depth-table td,
+.market-depth-table th {
+    background-color: var(--bg-color) !important;
+    width: 100%;
+}
+
+.market-depth-green td,
+.market-depth-green th {
+    color: #4683E5 !important;
+}
+.market-depth-green thead, 
+.market-depth-green tbody{
+    border-right: 0.2rem solid #4683E5;
+}
+
+.market-depth-red thead, 
+.market-depth-red tbody{
+    border-right: 0.2rem solid #FF6838;
+}
+
+
+.market-depth-red td,
+.market-depth-red th {
+    color: #FF6838 !important;
+}
+
+.market-depth-table td,
+.market-depth-table th {
+    padding: 4px 10px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.market-depth-table tbody tr:hover td {
+    background-color: var(--hover-color) !important;
+}

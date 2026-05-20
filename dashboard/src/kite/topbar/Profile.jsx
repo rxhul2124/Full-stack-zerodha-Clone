@@ -1,30 +1,62 @@
-import React from 'react';
-import './Profile.css'
+import React, { useState } from 'react';
 
-function Profile({name}) {
-    return ( 
+import './Profile.css';
+
+import Basket from './Basket';
+import Notifications from './Notifications';
+import ProfileDropDown from './ProfileDropDown';
+
+function Profile({ name, privacy, setPrivacy, theme, setTheme }) {
+    const [click, setClick] = useState(null);
+
+    return(
         <>
-            <div className="profile border">
-                <div className=" d-inline-flex options">
-                    <i className="fa-solid fa-cart-shopping  "></i>
-
-                    <i className="fa-regular fa-bell"></i>
-                    <div className="btn-group">
-                        <button type="button" className="btn btn-secondary btn-sm dropdown-toggle mb-3" data-bs-toggle="dropdown" aria-expanded="false">
-                            {name}
-                        </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Action</a></li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            <li><hr className="dropdown-divider"/></li>
-                            <li><a className="dropdown-item" href="#">Separated link</a></li>
-                        </ul>
-                    </div>
+            <div className="profile">
+                <div className="profile-options">
+                    <i
+                        className="fa-solid fa-cart-shopping"
+                        onClick={() =>
+                            setClick(
+                                click === "basket"
+                                ? null
+                                : "basket"
+                            )
+                        }
+                    />
+                    <i
+                        className="fa-regular fa-bell"
+                        onClick={() =>
+                            setClick(
+                                click === "notifications"
+                                ? null
+                                : "notifications"
+                            )
+                        }
+                    />
+                    <button className="profile-button"
+                        onClick={() =>
+                            setClick(
+                                click === "profile"
+                                ? null
+                                : "profile"
+                            )
+                        }
+                    >
+                        {name}
+                    </button>
                 </div>
             </div>
+            {
+                click === "basket" && <Basket />
+            }
+            {
+                click === "notifications" && <Notifications theme={theme}/>
+            }
+            {
+                click === "profile" && <ProfileDropDown name={"Rahul"}  email={"rahul@gmail.com"} privacy={privacy} setPrivacy={setPrivacy} theme={theme} setTheme={setTheme}/>
+            }
         </>
-     );
+    );
 }
 
 export default Profile;
